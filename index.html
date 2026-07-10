@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>예수와 역사 — 버전 선택</title>
+<style>
+  :root {
+    --jh: #8c2f39;
+    --jh-dark: #4a161f;
+    --jh-light: #c17683;
+    --jh-xlight: #f7e3e6;
+    --gold: #f4a261;
+    --bg: #f9fafb;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --muted: #6c757d;
+    --radius: 16px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: linear-gradient(135deg, #2b0c11 0%, #4a161f 40%, #8c2f39 100%);
+    color: #fff;
+    padding: 56px 24px 44px;
+    text-align: center;
+  }
+  header .icon { font-size: 3.2rem; display: block; margin-bottom: 14px; }
+  header h1 { font-size: 2.1rem; font-weight: 800; margin-bottom: 10px; }
+  header p { opacity: .85; font-size: 1.05rem; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+  .badge-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+  .badge { background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.3); border-radius: 20px; padding: 4px 14px; font-size: .82rem; }
+  main {
+    flex: 1; max-width: 820px; margin: 0 auto;
+    padding: 52px 20px 80px; width: 100%;
+  }
+  .choose-label {
+    text-align: center; font-size: .88rem; font-weight: 700;
+    color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 28px;
+  }
+  .version-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 620px) { .version-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) {
+    header { padding: 36px 16px 28px; }
+    header h1 { font-size: 1.6rem; }
+    main { padding: 32px 14px 60px; }
+    .version-card { padding: 24px 18px 20px; }
+    .v-title { font-size: 1.1rem; }
+    .v-desc { font-size: .88rem; }
+    .v-features li { font-size: .82rem; }
+    .info-box { padding: 16px; flex-direction: column; gap: 10px; }
+  }
+  .version-card {
+    background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 36px 28px 32px; text-decoration: none; color: var(--text);
+    display: flex; flex-direction: column; gap: 14px;
+    border: 2px solid transparent; transition: all .22s;
+    position: relative; overflow: hidden;
+  }
+  .version-card:hover { transform: translateY(-4px); box-shadow: 0 8px 36px rgba(0,0,0,0.14); }
+  .version-card.middle { border-color: var(--jh-light); }
+  .version-card.middle:hover { border-color: var(--jh); }
+  .version-card.high { border-color: var(--jh); }
+  .version-card.high:hover { border-color: var(--jh-dark); }
+  .version-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+  }
+  .version-card.middle::before { background: linear-gradient(90deg, var(--jh-light), var(--jh)); }
+  .version-card.high::before { background: linear-gradient(90deg, var(--jh), var(--jh-dark)); }
+  .v-emoji { font-size: 2.8rem; }
+  .v-level { font-size: .78rem; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; }
+  .version-card.middle .v-level { color: var(--jh); }
+  .version-card.high .v-level { color: var(--jh-dark); }
+  .v-title { font-size: 1.3rem; font-weight: 800; }
+  .v-desc { font-size: .93rem; color: var(--muted); line-height: 1.7; }
+  .v-features { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+  .v-features li { font-size: .85rem; display: flex; align-items: flex-start; gap: 7px; }
+  .v-features li::before { content: '✓'; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .version-card.middle .v-features li::before { color: var(--jh); }
+  .version-card.high .v-features li::before { color: var(--jh-dark); }
+  .v-btn {
+    margin-top: auto; display: inline-block; padding: 12px 0; border-radius: 30px;
+    font-size: .92rem; font-weight: 700; text-align: center; transition: opacity .2s;
+  }
+  .version-card.middle .v-btn { background: var(--jh); color: #fff; }
+  .version-card.high .v-btn { background: var(--jh-dark); color: #fff; }
+  .version-card:hover .v-btn { opacity: .88; }
+  .info-box {
+    background: var(--card); border-radius: var(--radius);
+    padding: 24px 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-top: 32px; display: flex; gap: 16px; align-items: flex-start;
+    border-left: 4px solid var(--gold);
+  }
+  .info-box .info-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .info-box p { font-size: .9rem; color: var(--muted); line-height: 1.7; }
+  .info-box strong { color: var(--text); }
+  footer {
+    background: var(--jh-dark); color: rgba(255,255,255,.75);
+    text-align: center; padding: 20px; font-size: .82rem;
+  }
+  footer a { color: rgba(255,255,255,.9); }
+</style>
+</head>
+<body>
+<div style="background:#4a161f;padding:10px 20px;display:flex;align-items:center;gap:10px;">
+  <a href="https://isaac-math.github.io/Faith_Reason/" style="color:#fff;text-decoration:none;font-size:.83rem;font-weight:600;display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:16px;padding:4px 12px;">← 신앙과 이성 전체</a>
+  <span style="color:rgba(255,255,255,.35);font-size:.8rem;">|</span>
+  <span style="color:rgba(255,255,255,.7);font-size:.82rem;">예수와 역사</span>
+</div>
+
+<header>
+  <span class="icon">✝️</span>
+  <h1>예수와 역사</h1>
+  <p>나사렛 예수는 역사학의 검증대에 오를 수 있는가,<br>그리고 부활은 최선의 설명인가</p>
+  <div class="badge-row">
+    <span class="badge">📖 복음서의 역사성</span>
+    <span class="badge">⛏️ 고고학 증거</span>
+    <span class="badge">🌅 부활 논증</span>
+    <span class="badge">🔥 초기 기독론</span>
+  </div>
+</header>
+
+<main>
+  <p class="choose-label">버전 선택</p>
+
+  <div class="version-grid">
+
+    <a href="JH_middle.html" class="version-card middle">
+      <span class="v-emoji">📗</span>
+      <span class="v-level">청소년 버전</span>
+      <span class="v-title">진짜 있었던 일일까?</span>
+      <p class="v-desc">탐정 비유로 배우는 역사 검증법, 고고학 발견 이야기, 제자들이 겁쟁이에서 순교자로 변한 이유까지 쉽고 재미있게 탐구합니다.</p>
+      <ul class="v-features">
+        <li>역사를 검증하는 탐정의 도구들</li>
+        <li>네 권의 전기 — 복음서라는 장르</li>
+        <li>돌들이 말한다 — 고고학 발견 3가지</li>
+        <li>십자가 — 가장 확실한 역사적 사실</li>
+        <li>빈 무덤의 아침, 겁쟁이들의 변화</li>
+        <li>인물 카드 4 + 퀴즈 10문제</li>
+      </ul>
+      <span class="v-btn">청소년 버전으로 →</span>
+    </a>
+
+    <a href="JH_high.html" class="version-card high">
+      <span class="v-emoji">📘</span>
+      <span class="v-level">대학생 버전</span>
+      <span class="v-title">역사적 예수 탐구와 부활 논증</span>
+      <p class="v-desc">자료 연대 사다리부터 고전 15:3-7 초기 신조 분석, 부활 가설 경쟁 평가, 초기 고기독론 논쟁까지 학술적으로 정면 검증합니다.</p>
+      <ul class="v-features">
+        <li>역사적 예수 탐구사 — 1차~3차 퀘스트</li>
+        <li>보컴의 목격자 연구, 복음서 장르론</li>
+        <li>고고학과 물질 증거 (2025년 발굴 반영)</li>
+        <li>고전 15:3-7 신조 분석 — 학술 하이라이트</li>
+        <li>부활 가설 경쟁 평가 (추론 최선 설명)</li>
+        <li>학자 9인 카드 + 레퍼런스 + 퀴즈 12문제</li>
+      </ul>
+      <span class="v-btn">대학생 버전으로 →</span>
+    </a>
+
+  </div>
+
+  <div class="info-box">
+    <span class="info-icon">💡</span>
+    <p><strong>이 시리즈에 대해</strong><br>
+    "예수와 역사"는 <a href="https://isaac-math.github.io/Biblical-Historicity/" style="color:var(--jh);font-weight:600;">「성경 속 역사성 논쟁」(구약 역사성)</a>의 신약 자매편입니다. 십자가형은 역사학이 거의 만장일치로 인정하는 사실입니다. 그렇다면 부활은 어떻게 평가해야 할까요? 이 자료는 회의적인 학자들의 논거도 최선의 형태로 제시한 뒤 응답합니다 — 역사적 논증이 신앙을 강요할 수는 없지만, 신앙이 근거 없는 도약이 아님을 보이는 것이 목표입니다. 청소년 버전으로 핵심 이야기를 파악한 뒤, 대학생 버전으로 학문적 논쟁의 깊이에 들어가는 것을 권합니다.</p>
+  </div>
+</main>
+
+<footer>
+  <p>Made by Isaac with Claude | 예수와 역사 교육자료</p>
+</footer>
+
+</body>
+</html>

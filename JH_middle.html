@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>예수와 역사 — 청소년 버전</title>
+<style>
+  :root {
+    --jh: #8c2f39;
+    --jh-dark: #4a161f;
+    --jh-light: #c17683;
+    --jh-xlight: #f7e3e6;
+    --bg: #f9fafb;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --muted: #6c757d;
+    --border: #dee2e6;
+    --radius: 12px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+         background: var(--bg); color: var(--text); line-height: 1.7; }
+
+  .site-header { background: linear-gradient(135deg, #4a161f 0%, #8c2f39 100%);
+    color: #fff; padding: 48px 24px 36px; text-align: center; }
+  .site-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+  .site-header p { opacity: .85; font-size: .98rem; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+  .level-badge { display: inline-block; background: rgba(255,255,255,.2);
+    border: 1px solid rgba(255,255,255,.35); border-radius: 20px;
+    padding: 4px 16px; font-size: .8rem; margin-top: 12px; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: #fff;
+        border-bottom: 2px solid var(--jh-xlight); padding: 0 16px;
+        overflow-x: auto; scrollbar-width: none; }
+  nav::-webkit-scrollbar { display: none; }
+  .nav-inner { max-width: 900px; margin: 0 auto; display: flex; gap: 0;
+               overflow-x: auto; scrollbar-width: none; }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  nav a { display: inline-block; padding: 13px 14px; font-size: .83rem; font-weight: 600;
+          color: var(--muted); text-decoration: none; white-space: nowrap;
+          border-bottom: 3px solid transparent; transition: all .2s; }
+  nav a.active, nav a:hover { color: var(--jh); border-bottom-color: var(--jh); }
+
+  .section { max-width: 860px; margin: 0 auto; padding: 48px 20px; }
+  .section + .section { border-top: 1px solid var(--border); }
+  .section-title { font-size: 1.35rem; font-weight: 800; color: var(--jh);
+    margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .section-sub { font-size: .9rem; color: var(--muted); margin-bottom: 24px; line-height: 1.5; }
+
+  .card { background: var(--card); border-radius: var(--radius);
+          box-shadow: var(--shadow); padding: 28px; margin-bottom: 16px; }
+  .highlight-box { background: var(--jh-xlight); border-left: 4px solid var(--jh);
+    border-radius: 0 var(--radius) var(--radius) 0; padding: 16px 20px; margin: 16px 0; font-size: .93rem; }
+  .warn-box { background: #fff3cd; border-left: 4px solid #ffc107;
+    border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 12px 0; font-size: .9rem; }
+  .info-box { background: #e8f4fd; border-left: 4px solid #4895ef;
+    border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 12px 0; font-size: .9rem; }
+  .success-box { background: #d8f3dc; border-left: 4px solid #2d6a4f;
+    border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 12px 0; font-size: .9rem; }
+
+  .tab-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;
+             overflow-x: auto; scrollbar-width: none; }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab-btn { background: var(--bg); border: 1px solid var(--border);
+             border-radius: 20px; padding: 8px 16px; font-size: .85rem;
+             font-weight: 600; cursor: pointer; color: var(--muted); transition: .2s; white-space: nowrap; }
+  .tab-btn.active { background: var(--jh); color: #fff; border-color: var(--jh); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .arrow { font-size: .75rem; color: var(--muted); transition: transform .25s; }
+
+  .flip-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(190px,1fr)); gap: 14px; margin-bottom: 20px; }
+  .flip-card { height: 200px; cursor: pointer; perspective: 1000px; }
+  .flip-inner { width: 100%; height: 100%; transition: transform .5s; transform-style: preserve-3d; position: relative; }
+  .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+  .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+    border-radius: var(--radius); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 16px; text-align: center; }
+  .flip-front { background: var(--card); border: 2px solid var(--jh-xlight); }
+  .flip-back { background: var(--jh); color: #fff; transform: rotateY(180deg); }
+  .flip-icon { font-size: 2rem; margin-bottom: 8px; }
+  .flip-title { font-size: .95rem; font-weight: 700; }
+  .flip-subtitle { font-size: .74rem; color: var(--muted); margin-top: 3px; }
+  .flip-hint { font-size: .72rem; color: var(--muted); margin-top: 6px; }
+  .flip-back-title { font-size: .92rem; font-weight: 800; margin-bottom: 8px; }
+  .flip-back-text { font-size: .81rem; line-height: 1.6; opacity: .95; }
+
+  .person-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 16px; }
+  .person-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px; }
+  .person-emoji { font-size: 2.2rem; margin-bottom: 8px; }
+  .person-name { font-size: 1rem; font-weight: 800; margin-bottom: 2px; }
+  .person-role { font-size: .78rem; color: var(--jh); font-weight: 600; margin-bottom: 8px; }
+  .person-work { font-size: .8rem; color: var(--muted); font-style: italic; margin-bottom: 8px; }
+  .person-desc { font-size: .85rem; color: #444; line-height: 1.6; }
+
+  .step-box { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+  .step-item { display: flex; gap: 12px; align-items: flex-start; background: var(--card);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 18px; }
+  .step-num { background: var(--jh); color: #fff; font-weight: 800; font-size: .85rem;
+    min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-text { font-size: .9rem; line-height: 1.6; }
+
+  .person-change-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 14px; margin: 16px 0; }
+  .change-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; border-top: 4px solid var(--jh-light); }
+  .change-name { font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+  .change-arrow { font-size: .85rem; color: var(--jh); font-weight: 700; margin-bottom: 8px; }
+  .change-desc { font-size: .85rem; color: #444; line-height: 1.6; }
+
+  .quiz-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+               padding: 24px; margin-bottom: 16px; }
+  .q-num { font-size: .75rem; font-weight: 700; color: var(--jh); text-transform: uppercase; margin-bottom: 6px; }
+  .q-text { font-size: 1rem; font-weight: 700; margin-bottom: 14px; line-height: 1.5; }
+  .q-options { display: flex; flex-direction: column; gap: 8px; }
+  .q-opt { text-align: left; padding: 12px 16px; border-radius: 8px; border: 1.5px solid var(--border);
+           background: #fff; font-size: .9rem; cursor: pointer; transition: .18s; }
+  .q-opt:hover:not(:disabled) { border-color: var(--jh); background: var(--jh-xlight); }
+  .q-opt.correct { border-color: #2d6a4f; background: #d8f3dc; color: #2d6a4f; font-weight: 700; }
+  .q-opt.wrong { border-color: #e63946; background: #ffe0e3; color: #c1121f; }
+  .q-feedback { margin-top: 12px; padding: 10px 14px; border-radius: 8px;
+                background: var(--jh-xlight); font-size: .88rem; border-left: 3px solid var(--jh); }
+  .score-box { background: var(--jh); color: #fff; border-radius: var(--radius);
+               padding: 28px; text-align: center; margin-top: 24px; }
+  .score-num { font-size: 2.8rem; font-weight: 800; margin-bottom: 4px; }
+
+  footer { background: var(--jh-dark); color: rgba(255,255,255,.75);
+           text-align: center; padding: 20px; font-size: .82rem; }
+  footer a { color: rgba(255,255,255,.9); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .site-header h1 { font-size: 1.6rem; }
+    .section { padding: 32px 16px; }
+    .flip-grid { grid-template-columns: 1fr 1fr; }
+    .person-grid { grid-template-columns: 1fr; }
+    .person-change-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div style="background:#4a161f;padding:10px 20px;display:flex;align-items:center;gap:10px;">
+  <a href="https://isaac-math.github.io/Faith_Reason/" style="color:#fff;text-decoration:none;font-size:.83rem;font-weight:600;display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:4px 12px;">← 전체 시리즈</a>
+  <span style="color:rgba(255,255,255,.35);font-size:.8rem;">|</span>
+  <a href="index.html" style="color:#fff;text-decoration:none;font-size:.83rem;font-weight:600;
+     display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);
+     border:1px solid rgba(255,255,255,.3);border-radius:16px;padding:4px 12px;">🏠 홈으로</a>
+  <span style="color:rgba(255,255,255,.35);font-size:.8rem;">|</span>
+  <span style="color:rgba(255,255,255,.7);font-size:.82rem;">예수와 역사 — 청소년 버전</span>
+</div>
+
+<div class="site-header">
+  <h1>✝️ 예수와 역사</h1>
+  <p>2천 년 전 나사렛 예수에게 정말 무슨 일이 있었을까?<br>탐정처럼 증거를 따라가며 함께 확인해봅니다.</p>
+  <span class="level-badge">청소년 버전</span>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#s0" class="active" onclick="setActive(this)">🔍 진짜일까?</a>
+    <a href="#s1" onclick="setActive(this)">📚 네 권의 전기</a>
+    <a href="#s2" onclick="setActive(this)">🏛️ 성경 밖 증거</a>
+    <a href="#s3" onclick="setActive(this)">⛏️ 돌들의 증언</a>
+    <a href="#s4" onclick="setActive(this)">✝️ 십자가</a>
+    <a href="#s5" onclick="setActive(this)">🌅 빈 무덤</a>
+    <a href="#s6" onclick="setActive(this)">🔥 변화된 사람들</a>
+    <a href="#s7" onclick="setActive(this)">💡 나에게 의미</a>
+    <a href="#s8" onclick="setActive(this)">🧑‍🎓 학자들</a>
+    <a href="#s9" onclick="setActive(this)">❓ 퀴즈</a>
+  </div>
+</nav>
+
+<!-- S0 진짜 있었던 일일까? -->
+<section id="s0" class="section">
+<div class="section-title">🔍 진짜 있었던 일일까?</div>
+<p class="section-sub">2천 년 전 사건을 오늘날 어떻게 검증할 수 있을까요? 탐정의 도구로 시작합니다.</p>
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('s0','s0t1',this)">🔎 증거</button>
+  <button class="tab-btn" onclick="switchTab('s0','s0t2',this)">🗣️ 증인</button>
+  <button class="tab-btn" onclick="switchTab('s0','s0t3',this)">📄 기록</button>
+</div>
+<div id="s0t1" class="tab-panel active">
+  <div class="card">
+    <p style="font-size:1.05rem;font-weight:700;color:var(--jh);margin-bottom:14px;">탐정은 무엇을 남기나 찾는다</p>
+    <p>탐정이 사건을 해결할 때는 눈에 보이는 물증(칼, 지문, CCTV)을 찾습니다. 역사학자도 비슷합니다 — 다만 물증 대신 <strong>고고학 유물</strong>과 <strong>당대의 기록</strong>을 찾습니다. 2천 년 전 사건이라 해도, 남겨진 돌·동전·건물터·문헌이 있다면 검증이 가능합니다.</p>
+    <div class="highlight-box" style="margin-top:14px;">
+      <strong>믿음은 눈감기가 아니라 눈뜨기입니다.</strong> 신앙이 증거를 무시하는 것이라면 그것은 맹신입니다. 이 자료는 증거를 정면으로 마주하며 예수님에 관한 질문에 답해봅니다.
+    </div>
+  </div>
+</div>
+<div id="s0t2" class="tab-panel">
+  <div class="card">
+    <p style="font-size:1.05rem;font-weight:700;color:var(--jh);margin-bottom:14px;">여러 증인이 있으면 더 믿을 만하다</p>
+    <p>법정에서도 여러 증인의 진술이 큰 틀에서 일치하면 신뢰도가 올라갑니다. 예수님에 관해서는 <strong>복음서 저자 4명</strong>뿐 아니라, 성경 밖의 로마·유대 역사가들까지 증언을 남겼습니다. 서로 다른 배경의 사람들이 같은 핵심 사실을 전한다면, 그것은 지어낸 이야기일 가능성이 낮아집니다.</p>
+  </div>
+</div>
+<div id="s0t3" class="tab-panel">
+  <div class="card">
+    <p style="font-size:1.05rem;font-weight:700;color:var(--jh);margin-bottom:14px;">기록은 언제 쓰였는가가 중요하다</p>
+    <p>소문은 시간이 지날수록 부풀려집니다. 그래서 역사학자는 사건과 기록 사이의 <strong>시간 간격</strong>을 중요하게 봅니다. 놀랍게도 예수님에 관한 가장 이른 기록(바울의 편지)은 십자가 사건 이후 불과 20년 안에 쓰였습니다 — 고대 인물 중에서는 매우 이른 편입니다.</p>
+    <div class="info-box">이 자료가 다룰 핵심 질문: 복음서는 믿을 만한가? 예수는 성경 밖에서도 기록되었는가? 십자가형은 역사적 사실인가? 부활은 최선의 설명인가?</div>
+  </div>
+</div>
+</section>
+
+<!-- S1 네 권의 전기 -->
+<section id="s1" class="section">
+<div class="section-title">📚 네 권의 전기</div>
+<p class="section-sub">복음서는 무슨 종류의 글일까요? 그리고 왜 네 권이나 있을까요?</p>
+<div class="card">
+  <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">교통사고 목격담을 떠올려보세요</p>
+  <p>교통사고를 목격한 네 사람에게 무슨 일이 있었는지 물어보면, 세부 표현은 조금씩 다르지만 핵심(누가, 언제, 어떻게)은 일치합니다. 오히려 네 사람의 말이 토씨 하나 안 틀리고 똑같다면 "말을 맞췄나?" 의심하게 되죠. 복음서 네 권도 마찬가지입니다 — 관점과 강조점은 다르지만 핵심 사건은 일치합니다.</p>
+</div>
+<div class="highlight-box">
+  <strong>복음서는 고대의 '위인전' 장르입니다.</strong> 오늘날의 소설이 아니라, 그리스·로마 시대에 흔했던 인물 전기(βίος, 비오스) 형식으로 쓰였습니다. 이 장르는 인물의 말과 행동, 성품을 통해 그가 누구인지 보여주는 것이 목적입니다.
+</div>
+<div class="card" style="margin-top:16px;">
+  <p style="font-weight:700;color:var(--jh);margin-bottom:12px;">📅 간단 연대표</p>
+  <ul style="padding-left:20px;line-height:2.1;font-size:.93rem;">
+    <li><strong>주후 30/33년</strong> — 예수님의 십자가형</li>
+    <li><strong>주후 50년대</strong> — 바울의 편지들 (가장 먼저 쓰인 신약 문서!)</li>
+    <li><strong>주후 70년 전후</strong> — 마가복음</li>
+    <li><strong>주후 80~90년</strong> — 마태복음, 누가복음</li>
+    <li><strong>주후 90~100년</strong> — 요한복음</li>
+  </ul>
+  <p style="margin-top:10px;font-size:.88rem;color:var(--muted);">놀랍게도 복음서보다 바울의 편지가 먼저 쓰였습니다. 바울은 예수님을 직접 만난 적은 없지만, 십자가 사건 후 불과 3~6년 만에 예루살렘의 사도들을 직접 만나 이야기를 확인했습니다(갈 1:18).</p>
+</div>
+</section>
+
+<!-- S2 성경 밖에서도 예수가? -->
+<section id="s2" class="section">
+<div class="section-title">🏛️ 성경 밖에서도 예수가?</div>
+<p class="section-sub">성경을 믿지 않는 사람들도 예수님에 대해 기록했을까요?</p>
+<div class="card">
+  <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">🏛️ 로마 역사가 타키투스 (주후 116년경)</p>
+  <p style="font-size:.9rem;line-height:1.7;">로마 최고의 역사가 타키투스는 『연대기』에서 이렇게 썼습니다: "그리스도라는 이름의 창시자는... 티베리우스 황제 시절 총독 본디오 빌라도에 의해 극형에 처해졌다." 타키투스는 그리스도인을 싫어했지만, 예수님이 실제로 처형당했다는 사실 자체는 의심하지 않았습니다.</p>
+</div>
+<div class="card">
+  <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">📜 유대 역사가 요세푸스 (주후 93년경)</p>
+  <p style="font-size:.9rem;line-height:1.7;">유대인 역사가 요세푸스는 『유대고대사』에서 "그리스도라 불린 예수의 형제 야고보"를 언급합니다. 이 구절의 진정성은 학자들 사이에서 폭넓게 인정됩니다 — 심지어 예수님을 믿지 않는 학자들도요.</p>
+</div>
+<div class="warn-box">
+  ⚠️ <strong>흔한 오해:</strong> "예수는 아예 존재하지 않았다"는 주장(신화론)을 들어본 적 있나요? 놀랍게도 이 주장은 전문 역사학자들 사이에서 거의 지지받지 못합니다. 심지어 기독교에 비판적인 불가지론자(agnostic) 학자 바트 어만조차 『예수는 존재했는가?』(2012)라는 책을 써서 이 주장을 정면으로 반박했습니다. "예수가 없었다"는 주장보다 "예수가 있었지만 우리가 믿는 것과 달랐다"는 주장이 학계의 실제 논쟁입니다.
+</div>
+</section>
+
+<!-- S3 돌들이 말한다 -->
+<section id="s3" class="section">
+<div class="section-title">⛏️ 돌들이 말한다</div>
+<p class="section-sub">땅속에서 발견된 유물들이 복음서 이야기를 어떻게 확인해주는지 살펴봅니다. 카드를 클릭해보세요.</p>
+<div class="flip-grid">
+  <div class="flip-card" onclick="flipCard(this)">
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">🪨</div>
+        <div class="flip-title">빌라도의 돌</div>
+        <div class="flip-subtitle">1961년 발견</div>
+        <div class="flip-hint">탭하여 이야기 보기</div>
+      </div>
+      <div class="flip-back">
+        <div class="flip-back-title">"유대의 총독 본디오 빌라도"</div>
+        <div class="flip-back-text">이스라엘 가이사랴에서 발견된 돌에 라틴어로 새겨진 빌라도의 이름과 직함. 복음서 속 인물이 실존 로마 총독이었음을 확증하는 최초의 고고학 증거입니다.</div>
+      </div>
+    </div>
+  </div>
+  <div class="flip-card" onclick="flipCard(this)">
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">🦴</div>
+        <div class="flip-title">발꿈치뼈</div>
+        <div class="flip-subtitle">1968년 발견</div>
+        <div class="flip-hint">탭하여 이야기 보기</div>
+      </div>
+      <div class="flip-back">
+        <div class="flip-back-title">십자가형의 실제 증거</div>
+        <div class="flip-back-text">예루살렘 근처에서 발견된 "요하난"이라는 사람의 뼈. 발꿈치에 못이 박힌 채였습니다. 로마의 십자가형이 실제로 이런 방식으로 집행되었음을 보여주는 유일한 고고학적 실물 증거입니다.</div>
+      </div>
+    </div>
+  </div>
+  <div class="flip-card" onclick="flipCard(this)">
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">⛵</div>
+        <div class="flip-title">갈릴리 어부의 배</div>
+        <div class="flip-subtitle">1986년 발견</div>
+        <div class="flip-hint">탭하여 이야기 보기</div>
+      </div>
+      <div class="flip-back">
+        <div class="flip-back-title">"예수의 배"</div>
+        <div class="flip-back-text">가뭄으로 물이 빠진 갈릴리 호수 바닥에서 발견된 1세기 어선. 예수님과 제자들이 탔을 법한 배와 크기·시대가 정확히 일치해, 복음서의 갈릴리 어업 배경이 사실적임을 보여줍니다.</div>
+      </div>
+    </div>
+  </div>
+  <div class="flip-card" onclick="flipCard(this)">
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">🏘️</div>
+        <div class="flip-title">벳새다 마을</div>
+        <div class="flip-subtitle">최신 발굴 소식</div>
+        <div class="flip-hint">탭하여 이야기 보기</div>
+      </div>
+      <div class="flip-back">
+        <div class="flip-back-text">복음서는 베드로·안드레의 고향을 "벳새다"라 부릅니다(요 1:44). 2025년 산불로 드러난 엘아라즈(el-Araj) 유적에서 로마 시대 건물들이 발굴되었고, 2026년 5월 발굴팀은 이 유적이 벳새다라는 사실이 사실상 확증되었다고 발표했습니다.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="info-box">💡 고고학이 "예수님이 계셨다"를 직접 증명하지는 않습니다. 하지만 복음서가 묘사하는 <strong>세계</strong>(사람, 장소, 관습)가 실제로 존재했음을 계속 확인해줍니다. 배경이 진짜라면, 이야기를 지어냈다고 보기는 더 어려워집니다.</div>
+</section>
+
+<!-- S4 십자가 -->
+<section id="s4" class="section">
+<div class="section-title">✝️ 십자가 — 가장 확실한 사실</div>
+<p class="section-sub">역사학자들이 거의 만장일치로 동의하는 단 하나의 사실이 있다면, 그것은 십자가형입니다.</p>
+<div class="card">
+  <p style="font-weight:700;color:var(--jh);margin-bottom:12px;">왜 그렇게 확신할 수 있을까요? — "부끄러운 이야기는 지어내지 않는다" 논리</p>
+  <div class="step-box">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text">1세기 로마 사회에서 십자가형은 노예와 반역자에게 내리는 <strong>최악의 수치스러운 형벌</strong>이었습니다.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text">만약 제자들이 "메시아 이야기"를 지어내려 했다면, 지도자가 그런 수치스러운 죽음을 당했다고 <strong>일부러 지어낼 이유가 없습니다.</strong></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-text">오히려 십자가는 초대 교회에 <strong>큰 걸림돌</strong>이었습니다(고전 1:23 "유대인에게는 거리끼는 것"). 지어낸 이야기라면 숨기고 싶었을 사실입니다.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-text">그런데도 이 사실이 성경 전체와 로마·유대 역사 기록에 <strong>공통으로</strong> 등장합니다. 그래서 학자들은 이를 역사학에서 가장 확실한 사실 중 하나로 꼽습니다.</div>
+    </div>
+  </div>
+</div>
+<div class="success-box">✅ 회의적인 학자들과 보수적인 학자들 모두, "예수는 로마에 의해 십자가형을 당했다"는 사실에는 거의 이견이 없습니다. 논쟁은 그다음에 시작됩니다 — 그 후에 무슨 일이 있었는가?</div>
+</section>
+
+<!-- S5 빈 무덤의 아침 -->
+<section id="s5" class="section">
+<div class="section-title">🌅 빈 무덤의 아침</div>
+<p class="section-sub">십자가 이후 사흘째 아침, 무슨 일이 있었을까요?</p>
+<div class="card">
+  <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">첫 증인이 여인들이었다는 것의 의미</p>
+  <p>네 복음서 모두, 빈 무덤을 처음 발견한 사람이 <strong>여인들</strong>이라고 기록합니다. 이것이 왜 중요할까요? 1세기 유대 사회에서는 여성의 법정 증언이 남성만큼 인정받지 못했습니다. 만약 이야기를 지어내려 했다면, 더 신뢰받는 남성 제자를 첫 증인으로 내세우는 것이 훨씬 유리했을 것입니다.</p>
+  <div class="highlight-box" style="margin-top:14px;">
+    <strong>추리 포인트:</strong> 지어낸 이야기라면 굳이 불리한 증인을 앞세울 이유가 없습니다. 오히려 "실제로 그렇게 일어났기 때문에 그대로 기록했다"는 설명이 더 자연스럽습니다.
+  </div>
+</div>
+<div class="card">
+  <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">아주 이른 시기에 전해진 신앙고백</p>
+  <p>바울은 고린도전서 15장에서 자신이 "받은" 신앙고백을 그대로 "전달"한다고 말합니다(고전 15:3-7). 학자들은 이 짧은 문구가 예수님 사후 불과 2~5년 안에 이미 정형화되어 전해지고 있었다고 봅니다. 소문이 전설로 부풀려지기에는 너무 짧은 시간입니다.</p>
+</div>
+</section>
+
+<!-- S6 겁쟁이들이 용감해진 이유 -->
+<section id="s6" class="section">
+<div class="section-title">🔥 겁쟁이들이 용감해진 이유</div>
+<p class="section-sub">십자가 사건 직후 도망쳤던 사람들이, 어떻게 목숨을 걸고 복음을 전하는 사람들이 되었을까요?</p>
+<div class="person-change-grid">
+  <div class="change-card">
+    <div class="change-name">베드로와 제자들</div>
+    <div class="change-arrow">도망자 → 담대한 증인</div>
+    <div class="change-desc">예수님이 체포되던 밤, 제자들은 모두 도망쳤고 베드로는 세 번이나 예수님을 모른다고 부인했습니다. 그런데 몇 주 후, 이들은 예루살렘 한복판에서 공개적으로 부활을 선포하기 시작합니다.</div>
+  </div>
+  <div class="change-card">
+    <div class="change-name">야고보 (예수님의 동생)</div>
+    <div class="change-arrow">회의자 → 교회 지도자</div>
+    <div class="change-desc">복음서는 예수님의 가족들이 그분을 믿지 않았다고 기록합니다(막 3:21). 그런데 이 야고보는 훗날 예루살렘 교회의 핵심 지도자가 되었고, 결국 신앙 때문에 순교했습니다.</div>
+  </div>
+  <div class="change-card">
+    <div class="change-name">바울 (사도)</div>
+    <div class="change-arrow">박해자 → 사도</div>
+    <div class="change-desc">바울은 원래 그리스도인들을 붙잡아 감옥에 넣던 사람이었습니다. 그런 그가 갑자기 자신이 핍박하던 신앙을 전하는 데 평생을 바칩니다.</div>
+  </div>
+</div>
+<div class="tab-bar" style="margin-top:20px;">
+  <button class="tab-btn active" onclick="switchTab('s6','s6t1',this)">다른 설명은 없을까?</button>
+  <button class="tab-btn" onclick="switchTab('s6','s6t2',this)">가장 설득력 있는 설명</button>
+</div>
+<div id="s6t1" class="tab-panel active">
+  <div class="card">
+    <p style="font-size:.9rem;line-height:1.7;">혹시 꿈이었을까요? 착각이었을까요? 거짓말이었을까요? 문제는, 이런 변화가 한두 사람이 아니라 <strong>여러 사람에게, 여러 상황에서</strong> 동시에 일어났다는 점입니다. 그리고 이들 중 다수가 이 믿음 때문에 목숨을 잃었습니다. 사람은 자신이 지어낸 거짓말을 위해 목숨을 걸지는 않습니다.</p>
+  </div>
+</div>
+<div id="s6t2" class="tab-panel">
+  <div class="card">
+    <p style="font-size:.9rem;line-height:1.7;">역사학자들은 이렇게 묻습니다: "이 변화를 가장 잘 설명하는 것은 무엇인가?" 제자들 스스로도 진심으로 <strong>무언가를 보았다고 확신했다</strong>는 것은 거의 모든 학자가 동의합니다. 논쟁은 "그들이 본 것이 실제 부활한 예수였는가, 아니면 다른 무언가였는가"에서 시작됩니다.</p>
+  </div>
+</div>
+</section>
+
+<!-- S7 나에게 무슨 의미? -->
+<section id="s7" class="section">
+<div class="section-title">💡 나에게 무슨 의미?</div>
+<p class="section-sub">역사적 증거를 다 살펴봤다면, 이제 이것이 나와 무슨 상관인지 생각해볼 차례입니다.</p>
+<div class="card">
+  <p style="font-weight:700;color:var(--jh);margin-bottom:12px;">기독교는 스스로 위험을 감수하는 정직한 신앙입니다</p>
+  <p>바울은 이렇게 씁니다: <strong>"그리스도께서 만일 다시 살아나지 못하셨으면... 너희 믿음도 헛것이며"</strong>(고전 15:14, 17). 이것은 놀라운 문장입니다. 바울은 "부활이 사실이 아니어도 좋은 가르침이니 믿으라"고 하지 않습니다. 오히려 기독교 신앙 전체를 하나의 역사적 사건 위에 걸고 있습니다. 이것은 검증을 피하는 신앙이 아니라, 검증을 자청하는 정직한 신앙입니다.</p>
+</div>
+<div class="highlight-box">
+  <strong>부활이 주는 소망:</strong> 만약 부활이 사실이라면, 죽음이 끝이 아니라는 뜻입니다. 그리고 우리의 몸 역시 하찮은 껍데기가 아니라 하나님이 소중히 여기시고 다시 회복시키실 대상이라는 뜻이기도 합니다.
+</div>
+<div class="card" style="margin-top:16px;">
+  <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">🙋 생각해볼 질문</p>
+  <ul style="padding-left:20px;line-height:2;font-size:.9rem;">
+    <li>이 자료에서 가장 설득력 있게 느껴진 증거는 무엇이었나요?</li>
+    <li>가장 더 알아보고 싶은 질문은 무엇인가요?</li>
+    <li>역사적 증거와 개인적 신앙은 어떤 관계에 있을까요?</li>
+  </ul>
+</div>
+</section>
+
+<!-- S8 학자들 -->
+<section id="s8" class="section">
+<div class="section-title">🧑‍🎓 이 분야를 연구한 사람들</div>
+<p class="section-sub">예수와 역사를 깊이 연구한 학자와 저자 4인을 소개합니다.</p>
+<div class="person-grid">
+  <div class="person-card">
+    <div class="person-emoji">📝</div>
+    <div class="person-name">누가</div>
+    <div class="person-role">복음서 저자 · 의사</div>
+    <div class="person-work">누가복음, 사도행전 (눅 1:1-4)</div>
+    <div class="person-desc">누가는 자신의 복음서 서두에서 "모든 일을 근원부터 자세히 미루어 살핀" 뒤 기록했다고 밝힙니다. 당대 의사로서의 정확성에 대한 훈련이 그의 역사 기술 방식에 반영되었다고 평가받습니다.</div>
+  </div>
+  <div class="person-card">
+    <div class="person-emoji">📖</div>
+    <div class="person-name">N.T. 라이트</div>
+    <div class="person-role">신약학자 · 전 더럼 주교</div>
+    <div class="person-work">『하나님의 아들의 부활』(2003)</div>
+    <div class="person-desc">부활 연구의 대표 학자 중 한 명. 1세기 유대인들이 "부활"이라는 말을 무슨 뜻으로 사용했는지 방대하게 연구하여, 초대교회의 부활 신앙이 새롭게 등장한 사건 없이는 설명하기 어렵다고 주장합니다.</div>
+  </div>
+  <div class="person-card">
+    <div class="person-emoji">🔍</div>
+    <div class="person-name">리처드 보컴</div>
+    <div class="person-role">신약학자</div>
+    <div class="person-work">『예수와 그 목격자들』(2006/2017)</div>
+    <div class="person-desc">복음서 속에 실명으로 등장하는 인물들이 실제 목격자였을 가능성을 연구했습니다. "복음서는 익명의 전설이다"라는 통념에 도전하는 대표적 연구로 꼽힙니다.</div>
+  </div>
+  <div class="person-card">
+    <div class="person-emoji">⚖️</div>
+    <div class="person-name">게리 하버마스</div>
+    <div class="person-role">철학자 · 부활 연구자</div>
+    <div class="person-work">『On the Resurrection』(2024~)</div>
+    <div class="person-desc">평생을 부활 연구에 바친 학자. 회의적인 학자들까지 포함해 학계가 인정하는 "최소한의 사실들"(십자가형, 제자들의 체험 확신 등)에서 출발해 부활을 논증하는 방법론으로 유명합니다.</div>
+  </div>
+</div>
+</section>
+
+<!-- S9 퀴즈 -->
+<section id="s9" class="section">
+<div class="section-title">❓ 퀴즈</div>
+<p class="section-sub">10문항 — 배운 내용을 점검해보세요.</p>
+
+<div class="quiz-card">
+  <div class="q-num">문제 1</div>
+  <div class="q-text">역사학자가 2천 년 전 사건을 검증할 때 주로 사용하는 도구가 아닌 것은?</div>
+  <div class="q-options">
+    <button class="q-opt" data-val="a" onclick="answerQuiz('s9',1,'a','d','고고학 유물은 대표적인 검증 도구입니다.')">a. 고고학 유물</button>
+    <button class="q-opt" data-val="b" onclick="answerQuiz('s9',1,'b','d','당대의 문헌 기록도 핵심 도구입니다.')">b. 당대의 문헌 기록</button>
+    <button class="q-opt" data-val="c" onclick="answerQuiz('s9',1,'c','d','여러 증인의 일치 여부도 중요한 검증 방법입니다.')">c. 여러 증인의 진술 비교</button>
+    <button class="q-opt" data-val="d" onclick="answerQuiz('s9',1,'d','d','✓ 정확합니다. 현대 여론조사는 2천 년 전 사건 검증과 무관합니다.')">d. 현재 사람들의 여론조사</button>
+  </div>
+</div>
+
+<div class="quiz-card">
+  <div class="q-num">문제 2</div>
+  <div class="q-text">복음서는 문학적으로 어떤 장르에 가장 가까운가요?</div>
+  <div class="q-options">
+    <button class="q-opt" data-val="a" onclick="answerQuiz('s9',2,'a','b','현대 소설은 등장한 지 얼마 되지 않은 장르로, 고대 복음서와는 다릅니다.')">a. 현대적 의미의 소설</button>
+    <button class="q-opt" data-val="b" onclick="answerQuiz('s9',2,'b','b','✓ 정확합니다. 복음서는 그리스·로마 시대의 인물 전기(βίος) 장르에 해당합니다.')">b. 고대의 인물 전기 (위인전)</button>
+    <button class="q-opt" data-val="c" onclick="answerQuiz('s9',2,'c','b','복음서는 시가 아니라 서사 형식의 산문입니다.')">c. 시가(詩歌)</button>
+    <button class="q-opt" data-val="d" onclick="answerQuiz('s9',2,'d','b','복음서는 법률 문서 형식을 취하지 않습니다.')">d. 법률 문서</button>
+  </div>
+</div>
+
+<div class="quiz-card">
+  <div class="q-num">문제 3</div>
+  <div class="q-text">신약 문서 중 가장 먼저 쓰인 것은?</div>
+  <div class="q-options">
+    <button class="q-opt" data-val="a" onclick="answerQuiz('s9',3,'a','b','마가복음은 대략 주후 70년 전후로, 바울 서신보다 늦습니다.')">a. 마가복음</button>
+    <button class="q-opt" data-val="b" onclick="answerQuiz('s9',3,'b','b','✓ 정확합니다. 바울의 편지들은 주후 50년대에 쓰여 신약에서 가장 이른 문서입니다.')">b. 바울의 편지들</button>
+    <button class="q-opt" data-val="c" onclick="answerQuiz('s9',3,'c','b','요한복음은 주후 90~100년경으로 가장 늦게 쓰인 복음서입니다.')">c. 요한복음</button>
+    <button class="q-opt" data-val="d" onclick="answerQuiz('s9',3,'d','b','마태복음은 주후 80~90년경으로 바울 서신보다 늦습니다.')">d. 마태복음</button>
+  </div>
+</div>
+
+<div class="quiz-card">
+  <div class="q-num">문제 4</div>
+  <div class="q-text">로마 역사가 타키투스와 유대 역사가 요세푸스의 공통점은?</div>
+  <div class="q-options">
+    <button class="q-opt" data-val="a" onclick="answerQuiz('s9',4,'a','a','✓ 정확합니다. 둘 다 그리스도인이 아니었지만 예수 및 초기 기독교와 관련된 사실을 기록했습니다.')">a. 그리스도인이 아니면서도 예수님 관련 사실을 기록했다</button>
+    <button class="q-opt" data-val="b" onclick="answerQuiz('s9',4,'b','a','둘 다 예수님의 제자가 아니었습니다.')">b. 둘 다 예수님의 직속 제자였다</button>
+    <button class="q-opt" data-val="c" onclick="answerQuiz('s9',4,'c','a','둘 다 복음서를 저술하지 않았습니다.')">c. 둘 다 복음서 저자였다</button>
+    <button class="q-opt" data-val="d" onclick="answerQuiz('s9',4,'d','a','두 사람은 서로 다른 시대·지역의 역사가입니다.')">d. 같은 시대, 같은 도시에서 함께 활동했다</button>
+  </div>
+</div>
+
+<div class="quiz-card">
+  <div class="q-num">문제 5</div>
+  <div class="q-text">1961년 가이사랴에서 발견된 "빌라도의 돌"이 갖는 의미는?</div>
+  <div class="q-options">
+    <button class="q-opt" data-val="a" onclick="answerQuiz('s9',5,'a','a','✓ 정확합니다. 이 돌은 복음서 속 로마 총독 빌라도가 실존 인물이었음을 보여주는 최초의 고고학적 증거입니다.')">a. 복음서 속 로마 총독 빌라도가 실존 인물이었음을 보여준다</button>
+    <button class="q-opt" data-val="b" onclick="answerQuiz('s9',5,'b','a','이 돌은 예수님 십자가형 자체를 직접 기록하고 있지는 않습니다.')">b. 예수님의 십자가형 장면을 직접 묘사하고 있다</button>
+    <button class="q-opt" data-val="c" onclick="answerQuiz('s9',5,'c','a','이 돌은 부활에 관한 내용을 담고 있지 않습니다.')">c. 부활을 증언하는 내용을 담고 있다</button>
+    <button class="q-opt" data-val="d" onclick="answerQuiz('s9',5,'d','a','이 돌은 벳새다가 아니라 가이사랴에서 발견되었습니다.')">d. 벳새다 마을의 위치를 확정해준다</button>
+  </div>
+</div>
+
+<div class="quiz-card">
+  <div class="q-num">문제 6</div>
+  <div class="q-text">"부끄러운 이야기는 지어내지 않는다"는 논리가 십자가형의 역사성을 지지하는 이유는?</div>
+  <div class="q-options">
+    <button class="q-opt" data-val="a" onclick="answerQuiz('s9',6,'a','a','✓ 정확합니다. 십자가형은 당대 최악의 수치형이었기에, 지어낸 이야기라면 굳이 지도자의 그런 죽음을 넣을 이유가 없습니다.')">a. 십자가형은 최악의 수치형이라 지어낼 이유가 없기 때문</button>
+    <button class="q-opt" data-val="b" onclick="answerQuiz('s9',6,'b','a','십자가형이 흔한 사건이었다는 것과 이 논리는 직접 관련이 없습니다.')">b. 십자가형이 당시 매우 흔한 사건이었기 때문</button>
+    <button class="q-opt" data-val="c" onclick="answerQuiz('s9',6,'c','a','로마인들이 유대 관습에 익숙했는지는 이 논리의 핵심이 아닙니다.')">c. 로마인들이 유대 관습을 잘 알고 있었기 때문</button>
+    <button class="q-opt" data-val="d" onclick="answerQuiz('s9',6,'d','a','제자들의 문헌 기록 능력은 이 논리와 관련이 없습니다.')">d. 제자들이 글을 잘 썼기 때문</button>
+  </div>
+</div>
+
+<div class="quiz-card">
+  <div class="q-num">문제 7</div>
+  <div class="q-text">빈 무덤의 첫 증인이 여인들이었다는 사실이 갖는 함의는?</div>
+  <div class="q-options">
+    <button class="q-opt" data-val="a" onclick="answerQuiz('s9',7,'a','c','오히려 그 반대에 가깝습니다 — 여성의 증언은 당대에 낮게 평가되었습니다.')">a. 당시 여성의 증언이 남성보다 더 신뢰받았다</button>
+    <button class="q-opt" data-val="b" onclick="answerQuiz('s9',7,'b','c','복음서는 여인들을 익명이 아니라 이름을 밝혀 기록합니다(막달라 마리아 등).')">b. 여인들의 이름은 기록에서 모두 생략되었다</button>
+    <button class="q-opt" data-val="c" onclick="answerQuiz('s9',7,'c','c','✓ 정확합니다. 당대에 불리한 증인을 굳이 앞세웠다는 것은, 지어낸 이야기가 아니라 실제 있었던 일을 그대로 기록했을 가능성을 높입니다.')">c. 지어낸 이야기라면 굳이 불리한 증인을 앞세울 이유가 없다</button>
+    <button class="q-opt" data-val="d" onclick="answerQuiz('s9',7,'d','c','이 사실은 로마법과는 관련이 없습니다.')">d. 로마법에서 여성만 무덤에 출입할 수 있었다</button>
+  </div>
+</div>
+
+<div class="quiz-card">
+  <div class="q-num">문제 8</div>
+  <div class="q-text">제자들의 변화(도망자 → 담대한 증인)를 설명할 때 학자들이 공통적으로 주목하는 점은?</div>
+  <div class="q-options">
+    <button class="q-opt" data-val="a" onclick="answerQuiz('s9',8,'a','b','제자들이 부와 명예를 위해 변했다는 근거는 없으며, 오히려 박해와 순교를 감수했습니다.')">a. 제자들이 부와 명예를 얻기 위해 이야기를 꾸몄다</button>
+    <button class="q-opt" data-val="b" onclick="answerQuiz('s9',8,'b','b','✓ 정확합니다. 여러 사람이 여러 상황에서 동시에 변화를 겪었고, 이 믿음 때문에 목숨을 걸었다는 점이 논증의 핵심입니다.')">b. 여러 사람이 각기 다른 상황에서 동시에 변화를 겪고 목숨까지 걸었다</button>
+    <button class="q-opt" data-val="c" onclick="answerQuiz('s9',8,'c','b','변화는 한 사람이 아니라 여러 사람에게 나타났습니다.')">c. 오직 베드로 한 사람만 변화를 겪었다</button>
+    <button class="q-opt" data-val="d" onclick="answerQuiz('s9',8,'d','b','이 변화는 로마 정부의 지시와 무관합니다.')">d. 로마 정부가 제자들에게 이야기를 지시했다</button>
+  </div>
+</div>
+
+<div class="quiz-card">
+  <div class="q-num">문제 9</div>
+  <div class="q-text">고린도전서 15:14에서 바울이 말하는 핵심은 무엇인가요?</div>
+  <div class="q-options">
+    <button class="q-opt" data-val="a" onclick="answerQuiz('s9',9,'a','a','✓ 정확합니다. 바울은 부활이 사실이 아니라면 믿음 전체가 헛것이라고 스스로 못박습니다 — 검증을 자청하는 정직한 신앙 선언입니다.')">a. 부활이 사실이 아니면 기독교 신앙 전체가 헛것이다</button>
+    <button class="q-opt" data-val="b" onclick="answerQuiz('s9',9,'b','a','바울은 도덕적 가르침만으로 충분하다고 말하지 않습니다.')">b. 부활과 무관하게 예수님의 도덕적 가르침만으로 충분하다</button>
+    <button class="q-opt" data-val="c" onclick="answerQuiz('s9',9,'c','a','이 구절은 로마법에 관한 내용이 아닙니다.')">c. 로마법이 기독교를 인정해야 한다</button>
+    <button class="q-opt" data-val="d" onclick="answerQuiz('s9',9,'d','a','이 구절은 성전 제사에 관한 내용이 아닙니다.')">d. 성전 제사가 여전히 유효하다</button>
+  </div>
+</div>
+
+<div class="quiz-card">
+  <div class="q-num">문제 10</div>
+  <div class="q-text">이 자료가 전하는 부활 소망의 핵심 내용은?</div>
+  <div class="q-options">
+    <button class="q-opt" data-val="a" onclick="answerQuiz('s9',10,'a','b','부활 신앙은 몸을 부정하지 않고 오히려 몸의 소중함을 긍정합니다.')">a. 육체는 중요하지 않으며 영혼만 중요하다</button>
+    <button class="q-opt" data-val="b" onclick="answerQuiz('s9',10,'b','b','✓ 정확합니다. 부활이 사실이라면 죽음이 끝이 아니며, 우리의 몸도 하나님이 소중히 여기고 회복시키실 대상입니다.')">b. 죽음이 끝이 아니며, 몸도 하나님이 소중히 여기시는 대상이다</button>
+    <button class="q-opt" data-val="c" onclick="answerQuiz('s9',10,'c','b','이 소망은 현세의 성공을 보장한다는 내용이 아닙니다.')">c. 신앙을 가지면 현세에서 반드시 성공한다</button>
+    <button class="q-opt" data-val="d" onclick="answerQuiz('s9',10,'d','b','이 소망은 세상의 종말 날짜를 계산하는 것과 무관합니다.')">d. 세상의 종말 날짜를 정확히 계산할 수 있다</button>
+  </div>
+</div>
+
+</section>
+
+<footer>
+  <p>Made by Isaac with Claude | 예수와 역사 교육자료 — 청소년 버전</p>
+  <p style="margin-top:6px;"><a href="index.html">← 버전 선택으로</a></p>
+</footer>
+
+<script>
+function setActive(a){
+  document.querySelectorAll('nav a').forEach(x=>x.classList.remove('active'));
+  a.classList.add('active');
+}
+
+function switchTab(sectionId,panelId,btn){
+  const sec=document.getElementById(sectionId);
+  sec.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  sec.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleFlip(card){card.classList.toggle('flipped');}
+function flipCard(card){card.classList.toggle('flipped');}
+
+const _ans={};
+function answerQuiz(sec,qNum,chosen,correct,feedback){
+  const key=sec+'_'+qNum;
+  if(_ans[key]) return;
+  _ans[key]={chosen,correct};
+  const cards=document.querySelectorAll('#'+sec+' .quiz-card');
+  const card=cards[qNum-1];
+  if(!card) return;
+  card.querySelectorAll('.q-opt').forEach(btn=>{
+    btn.disabled=true;
+    const v=btn.getAttribute('data-val');
+    if(v===correct) btn.classList.add('correct');
+    else if(v===chosen) btn.classList.add('wrong');
+  });
+  let fb=card.querySelector('.q-feedback');
+  if(!fb){fb=document.createElement('p');fb.className='q-feedback';card.appendChild(fb);}
+  fb.innerHTML=feedback;fb.style.display='block';
+  const secEl=document.getElementById(sec);
+  const total=secEl.querySelectorAll('.quiz-card').length;
+  const done=Object.keys(_ans).filter(k=>k.startsWith(sec+'_')).length;
+  if(done===total){
+    showScore(sec);
+  }
+}
+
+function showScore(sec){
+  const secEl=document.getElementById(sec);
+  const cards=secEl.querySelectorAll('.quiz-card');
+  let correct=0;
+  cards.forEach((_,i)=>{
+    const k=sec+'_'+(i+1);
+    if(_ans[k]&&_ans[k].chosen===_ans[k].correct) correct++;
+  });
+  const total=cards.length;
+  const pct=Math.round(correct/total*100);
+  let msg='';
+  if(correct===total) msg='🎉 만점! 탐정 자격 인증!';
+  else if(correct>=total*0.8) msg='✅ 훌륭합니다! 핵심을 잘 이해했어요.';
+  else if(correct>=total*0.5) msg='📚 좋아요! 다시 한번 살펴보면 더 좋겠어요.';
+  else msg='🔄 자료를 다시 천천히 읽어보길 권해요.';
+  let box=secEl.querySelector('.score-box');
+  if(!box){box=document.createElement('div');box.className='score-box';secEl.appendChild(box);}
+  box.innerHTML='<div class="score-num">'+correct+' / '+total+'</div><div>'+pct+'% — '+msg+'</div>';
+  box.scrollIntoView({behavior:'smooth'});
+}
+
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('nav a[href^="#"]');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(s.getBoundingClientRect().top<=120) cur=s.id;});
+  navLinks.forEach(a=>{
+    a.classList.toggle('active',a.getAttribute('href')==='#'+cur);
+  });
+});
+</script>
+</body>
+</html>
