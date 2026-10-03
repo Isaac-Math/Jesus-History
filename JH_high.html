@@ -34,7 +34,7 @@
     --border:#dee2e6; --radius:12px; --shadow:0 2px 12px rgba(0,0,0,0.08);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+  body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;word-break:keep-all;overflow-wrap:break-word;}
   .site-header{background:linear-gradient(135deg,#4a161f 0%,#8c2f39 100%);color:#fff;padding:48px 24px 36px;text-align:center;}
   .site-header h1{font-size:2rem;font-weight:800;margin-bottom:8px;}
   .site-header p{opacity:.85;font-size:.98rem;max-width:520px;margin:0 auto;line-height:1.7;}
@@ -63,7 +63,7 @@
   .acc-btn{width:100%;text-align:left;padding:16px 18px;background:var(--card);font-size:.95rem;font-weight:700;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;}
   .acc-btn:hover{background:#f8f9fa;}
   .acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;padding:0 18px;}
-  .acc-body.open{max-height:2200px;padding:16px 18px;}
+  .acc-body.open{padding:16px 18px;}
   .arrow{font-size:.75rem;color:var(--muted);transition:transform .25s;flex-shrink:0;}
   .flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:20px;}
   .flip-card{height:210px;cursor:pointer;perspective:1000px;}
@@ -464,7 +464,7 @@
 </div>
 <div id="s7t3" class="tab-panel">
   <div class="card">
-    <p style="font-size:.9rem;line-height:1.75;"><strong>흄의 반론:</strong> 데이비드 흄은 "기적의 확률은 항상 그것을 부정하는 증언이 거짓일 확률보다 낮다"고 주장했습니다. <strong>리코나·매그루의 응답:</strong> 이는 순환적이라는 비판이 있습니다 — 기적의 사전 확률을 이미 0에 가깝게 설정한 뒤 그것을 근거로 기적을 배제하는 구조이기 때문입니다. <strong>방법론적 자연주의 논쟁:</strong> 역사학이 원리상 초자연적 설명을 배제해야 하는지(방법론적 자연주의), 아니면 증거가 가리키는 곳으로 열린 채 따라가야 하는지가 핵심 쟁점입니다. 이 자료의 절제된 결론: "역사학이 부활을 증명한다"가 아니라 <strong>"역사학의 증거가 부활을 가리킨다"</strong>는 것입니다.</p>
+    <p style="font-size:.9rem;line-height:1.75;"><strong>흄의 반론:</strong> 데이비드 흄은 『인간 지성에 관한 탐구』(1748) 10장에서, 증언이 거짓이라는 것이 그 증언이 입증하려는 사건보다 더 기적적이지 않은 한 어떤 증언도 기적을 입증할 수 없다고 주장했습니다 — 기적이 실제로 일어났을 확률은 그것을 보고하는 증언이 거짓일 확률보다 (거의) 언제나 낮다는 것입니다. <strong>리코나·매그루의 응답:</strong> 이는 순환적이라는 비판이 있습니다 — 기적의 사전 확률을 이미 0에 가깝게 설정한 뒤 그것을 근거로 기적을 배제하는 구조이기 때문입니다. <strong>방법론적 자연주의 논쟁:</strong> 역사학이 원리상 초자연적 설명을 배제해야 하는지(방법론적 자연주의), 아니면 증거가 가리키는 곳으로 열린 채 따라가야 하는지가 핵심 쟁점입니다. 이 자료의 절제된 결론: "역사학이 부활을 증명한다"가 아니라 <strong>"역사학의 증거가 부활을 가리킨다"</strong>는 것입니다.</p>
   </div>
 </div>
 </section>
@@ -580,7 +580,7 @@
 </div>
 <div class="acc-item">
   <button class="acc-btn" onclick="toggleAcc(this)">⑤ "부활 기사들이 서로 모순된다" <span class="arrow">▼</span></button>
-  <div class="acc-body"><p style="font-size:.9rem;line-height:1.7;"><strong>반론:</strong> 무덤에 간 여성의 수, 천사의 수, 등장 순서 등 부활 기사의 세부사항이 복음서마다 다르다. <strong>응답:</strong> 리코나는 이런 차이를 <strong>핵심 일치 / 주변 차이</strong> 구조로 분석합니다 — 빈 무덤, 여성이 첫 발견자, 예수의 출현이라는 핵심은 네 복음서가 일치하지만, 목격 지점과 강조점이 다른 저자들이 각기 다른 세부(부분적 정보)를 압축·선택했다는 것이 S2에서 다룬 고대 전기 관행과 부합합니다. 남는 논점: 완전한 조화(harmonization)를 시도할지, 신학적 강조의 차이로 볼지는 해석학적 선택의 문제입니다.</p></div>
+  <div class="acc-body"><p style="font-size:.9rem;line-height:1.7;"><strong>반론:</strong> 무덤에 간 여성의 수, 천사의 수, 등장 순서 등 부활 기사의 세부사항이 복음서마다 다르다. <strong>응답:</strong> 리코나는 이런 차이를 <strong>핵심 일치 / 주변 차이</strong> 구조로 분석합니다 — 빈 무덤과 여성 첫 발견자는 네 복음서가 일치하고, 부활하신 예수의 출현은 마태·누가·요한이 전하며, 가장 이른 마가는 출현을 예고(막 16:7)만 하고 16:8에서 끝납니다(16:9-20은 대다수 학자가 후대 첨가로 보는 단락 — <a href="https://faithreason.kr/Text-Canon/TX_high.html#s4" style="color:var(--jh);font-weight:700;">TX 대학생 버전 S4</a>). 이렇게 핵심은 공유하면서도, 목격 지점과 강조점이 다른 저자들이 각기 다른 세부(부분적 정보)를 압축·선택했다는 것이 S2에서 다룬 고대 전기 관행과 부합합니다. 남는 논점: 완전한 조화(harmonization)를 시도할지, 신학적 강조의 차이로 볼지는 해석학적 선택의 문제입니다.</p></div>
 </div>
 <div class="acc-item">
   <button class="acc-btn" onclick="toggleAcc(this)">⑥ "기적은 원리적으로 역사 서술이 불가능하다" <span class="arrow">▼</span></button>
@@ -794,6 +794,7 @@
     <li><span class="ref-author">Josephus.</span> <span class="ref-title">Antiquities of the Jews</span> 18.63-64; 20.200. (표준 영역본: Loeb Classical Library)</li>
     <li><span class="ref-author">Tacitus.</span> <span class="ref-title">Annals</span> 15.44.</li>
     <li><span class="ref-author">Pliny the Younger.</span> <span class="ref-title">Epistles</span> 10.96.</li>
+    <li><span class="ref-author">Hume, David.</span> <span class="ref-title">An Enquiry concerning Human Understanding.</span> 1748. Section X, "Of Miracles."</li>
     <li><span class="ref-author">Hengel, Martin.</span> <span class="ref-title">Crucifixion.</span> Philadelphia: Fortress Press, 1977.</li>
     <li><span class="ref-author">Ehrman, Bart D.</span> <span class="ref-title">Did Jesus Exist? The Historical Argument for Jesus of Nazareth.</span> New York: HarperOne, 2012.</li>
   </ul>
@@ -1009,14 +1010,28 @@ function toggleAcc(btn){
   const arrow=btn.querySelector('.arrow');
   const isOpen=body.classList.contains('open');
   if(isOpen){
+    // 닫기: 현재 실제 높이로 고정한 뒤 한 프레임 쉬고 0으로(reflow를 강제해야 트랜지션이 걸림)
     body.style.maxHeight=body.scrollHeight+'px';
     requestAnimationFrame(()=>{
       body.classList.remove('open');
       body.style.maxHeight='0';
     });
   } else {
+    // 열기: 트랜지션을 잠시 끄고 패딩까지 포함한 자연 높이를 잰 뒤 그 높이로 애니메이션(패딩 전환 중 측정하면 32px 모자라 끝줄이 잘림)
     body.classList.add('open');
-    body.style.maxHeight=body.scrollHeight+'px';
+    const _t=body.style.transition;
+    body.style.transition='none';
+    body.style.maxHeight='none';
+    const target=body.scrollHeight;
+    body.style.maxHeight='0';
+    void body.offsetHeight;
+    body.style.transition=_t;
+    body.style.maxHeight=target+'px';
+    body.addEventListener('transitionend',function te(e){
+      if(e.propertyName!=='max-height') return;
+      if(body.classList.contains('open')) body.style.maxHeight='none';
+      body.removeEventListener('transitionend',te);
+    });
   }
   if(arrow) arrow.textContent=isOpen?'▼':'▲';
 }

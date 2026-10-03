@@ -43,7 +43,7 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
-         background: var(--bg); color: var(--text); line-height: 1.7; }
+         background: var(--bg); color: var(--text); line-height: 1.7; word-break: keep-all; overflow-wrap: break-word; }
 
   .site-header { background: linear-gradient(135deg, #4a161f 0%, #8c2f39 100%);
     color: #fff; padding: 48px 24px 36px; text-align: center; }
@@ -94,10 +94,10 @@
   .arrow { font-size: .75rem; color: var(--muted); transition: transform .25s; }
 
   .flip-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(190px,1fr)); gap: 14px; margin-bottom: 20px; }
-  .flip-card { height: 200px; cursor: pointer; perspective: 1000px; }
-  .flip-inner { width: 100%; height: 100%; transition: transform .5s; transform-style: preserve-3d; position: relative; }
+  .flip-card { min-height: 200px; display: grid; cursor: pointer; perspective: 1000px; }
+  .flip-inner { width: 100%; display: grid; transition: transform .5s; transform-style: preserve-3d; position: relative; }
   .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
-  .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+  .flip-front, .flip-back { grid-area: 1/1; min-width: 0; -webkit-backface-visibility: hidden; backface-visibility: hidden;
     border-radius: var(--radius); display: flex; flex-direction: column;
     align-items: center; justify-content: center; padding: 16px; text-align: center; }
   .flip-front { background: var(--card); border: 2px solid var(--jh-xlight); }
@@ -514,7 +514,7 @@
     <button class="q-opt" data-val="a" onclick="answerQuiz('s9',4,'a','a','✓ 정확합니다. 둘 다 그리스도인이 아니었지만 예수 및 초기 기독교와 관련된 사실을 기록했습니다.')">a. 그리스도인이 아니면서도 예수님 관련 사실을 기록했다</button>
     <button class="q-opt" data-val="b" onclick="answerQuiz('s9',4,'b','a','둘 다 예수님의 제자가 아니었습니다.')">b. 둘 다 예수님의 직속 제자였다</button>
     <button class="q-opt" data-val="c" onclick="answerQuiz('s9',4,'c','a','둘 다 복음서를 저술하지 않았습니다.')">c. 둘 다 복음서 저자였다</button>
-    <button class="q-opt" data-val="d" onclick="answerQuiz('s9',4,'d','a','두 사람은 서로 다른 시대·지역의 역사가입니다.')">d. 같은 시대, 같은 도시에서 함께 활동했다</button>
+    <button class="q-opt" data-val="d" onclick="answerQuiz('s9',4,'d','a','두 사람 모두 예수님 사후에 태어났습니다(요세푸스 37년경, 타키투스 56년경).')">d. 둘 다 예수님을 직접 만난 목격자였다</button>
   </div>
 </div>
 
