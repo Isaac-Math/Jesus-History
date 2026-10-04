@@ -30,7 +30,7 @@
 <style>
   :root {
     --jh:#8c2f39; --jh-dark:#4a161f; --jh-light:#c17683; --jh-xlight:#f7e3e6;
-    --bg:#f9fafb; --card:#ffffff; --text:#1a1a2e; --muted:#6c757d;
+    --bg:#f9fafb; --card:#ffffff; --text:#1a1a2e; --muted:#5c636a;
     --border:#dee2e6; --radius:12px; --shadow:0 2px 12px rgba(0,0,0,0.08);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -136,11 +136,17 @@
     .position-grid{grid-template-columns:1fr;}
     .person-grid{grid-template-columns:1fr;}
   }
+  /* 상단 바: 알약 버튼은 한 줄로 유지하고, 경로 문구는 좁은 화면에서 숨긴다 */
+  .top-bar a{white-space:nowrap;flex-shrink:0;}
+  .top-bar>span:last-child{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  @media(max-width:480px){.top-bar>span:nth-last-child(-n+2){display:none;}}
+  /* nav로 이동했을 때 섹션 제목이 고정 nav 밑에 가리지 않게 */
+  section[id]{scroll-margin-top:60px;}
 </style>
 </head>
 <body>
 
-<div style="background:#4a161f;padding:10px 20px;display:flex;align-items:center;gap:10px;">
+<div class="top-bar" style="background:#4a161f;padding:10px 20px;display:flex;align-items:center;gap:10px;">
   <a href="https://faithreason.kr/Faith_Reason/" style="color:#fff;text-decoration:none;font-size:.83rem;font-weight:600;display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:4px 12px;">← 전체 시리즈</a>
   <span style="color:rgba(255,255,255,.35);font-size:.8rem;">|</span>
   <a href="index.html" style="color:#fff;text-decoration:none;font-size:.83rem;font-weight:600;display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:16px;padding:4px 12px;">🏠 홈으로</a>
@@ -177,7 +183,7 @@
 
 <!-- S0 도입 -->
 <section id="s0" class="section">
-<div class="section-title">소개 — 질문의 무게와 방법론</div>
+<h2 class="section-title">소개 — 질문의 무게와 방법론</h2>
 <p class="section-sub">"예수는 실존했나"에서 "부활은 사실인가"까지, 질문의 사다리를 오르며 방법론을 먼저 세웁니다.</p>
 <div class="card">
   <p style="font-weight:700;color:var(--jh);margin-bottom:12px;">질문의 사다리</p>
@@ -197,7 +203,7 @@
 
 <!-- S1 자료 지형 -->
 <section id="s1" class="section">
-<div class="section-title">자료 지형 — 우리는 무엇을 가지고 있나</div>
+<h2 class="section-title">자료 지형 — 우리는 무엇을 가지고 있나</h2>
 <p class="section-sub">연대 사다리, 공관복음 문제, 성경 외부 증거를 검토합니다.</p>
 <div class="card">
   <p style="font-weight:700;color:var(--jh);margin-bottom:12px;">연대 사다리</p>
@@ -248,7 +254,7 @@
 
 <!-- S2 복음서 장르와 전승 -->
 <section id="s2" class="section">
-<div class="section-title">복음서 장르와 전승 — 신뢰성의 구조</div>
+<h2 class="section-title">복음서 장르와 전승 — 신뢰성의 구조</h2>
 <p class="section-sub">복음서는 무슨 문헌이며, 구전에서 기록까지 어떻게 전달되었나.</p>
 <div class="card">
   <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">버리지의 장르 판정</p>
@@ -296,7 +302,7 @@
 
 <!-- S3 역사적 예수 탐구사 -->
 <section id="s3" class="section">
-<div class="section-title">역사적 예수 탐구사</div>
+<h2 class="section-title">역사적 예수 탐구사</h2>
 <p class="section-sub">200년에 걸친 학문사 — 각 국면의 전제와 성과, 그리고 한계.</p>
 <div class="timeline">
   <div class="tl-item">
@@ -332,7 +338,7 @@
 
 <!-- S4 고고학과 물질 증거 -->
 <section id="s4" class="section">
-<div class="section-title">고고학과 물질 증거</div>
+<h2 class="section-title">고고학과 물질 증거</h2>
 <p class="section-sub">복음서 세계의 정합성을 확인하는 발굴들 — 2025~2026년 최신 동향 포함.</p>
 <div class="warn-box">⚠️ <strong>방법론적 겸손:</strong> 고고학은 "예수 실존"을 직접 증명하지 못합니다. 대신 복음서가 묘사하는 지리·인물·관습의 세계가 실제로 존재했는지를 검증합니다 — 배경의 정합성이 높을수록 순수 창작 가설의 부담이 커집니다.</div>
 <div class="acc-item">
@@ -370,7 +376,7 @@
 
 <!-- S5 십자가형 -->
 <section id="s5" class="section">
-<div class="section-title">십자가형 — 컨센서스의 정점</div>
+<h2 class="section-title">십자가형 — 컨센서스의 정점</h2>
 <p class="section-sub">왜 역사학에서 가장 확실한 사실로 꼽히는가.</p>
 <div class="card">
   <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">다중 독립 증언 + 당혹성 기준</p>
@@ -394,7 +400,7 @@
 
 <!-- S6 빈 무덤과 초기 신조 -->
 <section id="s6" class="section">
-<div class="section-title">빈 무덤과 초기 신조</div>
+<h2 class="section-title">빈 무덤과 초기 신조</h2>
 <p class="section-sub">이 시리즈의 학술 하이라이트 — 고린도전서 15:3-7의 연대 역산.</p>
 <div class="card">
   <p style="font-weight:700;color:var(--jh);margin-bottom:12px;">고전 15:3-7 신조 분석</p>
@@ -425,7 +431,7 @@
 
 <!-- S7 부활 가설 경쟁 -->
 <section id="s7" class="section">
-<div class="section-title">부활 — 가설 경쟁 (추론 최선의 설명)</div>
+<h2 class="section-title">부활 — 가설 경쟁 (추론 최선의 설명)</h2>
 <p class="section-sub">설명해야 할 데이터를 정하고, 경쟁 가설들을 평가합니다.</p>
 <div class="card">
   <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">최소사실 접근 — 설명해야 할 데이터 4(+1)</p>
@@ -471,7 +477,7 @@
 
 <!-- S8 초기 고기독론 -->
 <section id="s8" class="section">
-<div class="section-title">초기 고기독론 — "가장 이른 기독론이 가장 높은 기독론"</div>
+<h2 class="section-title">초기 고기독론 — "가장 이른 기독론이 가장 높은 기독론"</h2>
 <p class="section-sub">유일신론 유대교 안에서 폭발적으로 등장한 예수 경배 현상.</p>
 <div class="card">
   <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">후르타도의 논지</p>
@@ -499,7 +505,7 @@
 
 <!-- S9 변화된 사람들 -->
 <section id="s9" class="section">
-<div class="section-title">변화된 사람들 — 부활 이후의 역사</div>
+<h2 class="section-title">변화된 사람들 — 부활 이후의 역사</h2>
 <p class="section-sub">사회학적 이례성: 지도자가 처형된 메시아 운동은 대개 소멸했습니다.</p>
 <div class="card">
   <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">사회학적 비교 사례</p>
@@ -529,7 +535,7 @@
 
 <!-- S10 신학적 의미 -->
 <section id="s10" class="section">
-<div class="section-title">신학적 의미 — 역사와 신앙</div>
+<h2 class="section-title">신학적 의미 — 역사와 신앙</h2>
 <p class="section-sub">부활이 복음의 문법인 이유, 그리고 증거와 신앙의 관계.</p>
 <div class="card">
   <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">고린도전서 15장 — 부활이 왜 복음의 문법인가</p>
@@ -560,7 +566,7 @@
 
 <!-- S11 반론 종합 Q&A -->
 <section id="s11" class="section">
-<div class="section-title">반론 종합 Q&amp;A</div>
+<h2 class="section-title">반론 종합 Q&amp;A</h2>
 <p class="section-sub">가장 자주 제기되는 반론 6가지를 최강의 형태로 제시한 뒤 응답합니다.</p>
 <div class="acc-item">
   <button class="acc-btn" onclick="toggleAcc(this)">① "복음서는 익명 문서다" <span class="arrow">▼</span></button>
@@ -590,7 +596,7 @@
 
 <!-- S12 학자 카드 -->
 <section id="s12" class="section">
-<div class="section-title">학자 카드 9인</div>
+<h2 class="section-title">학자 카드 9인</h2>
 <p class="section-sub">이 분야의 논쟁을 이끌어온 대표 학자들.</p>
 <div class="person-grid">
   <div class="person-card">
@@ -661,7 +667,7 @@
 
 <!-- S13 용어사전 -->
 <section id="s13" class="section">
-<div class="section-title">용어사전</div>
+<h2 class="section-title">용어사전</h2>
 <p class="section-sub">이 분야에서 필수적으로 알아야 할 학술 용어 16항.</p>
 <div class="card" style="padding:0 28px;">
   <div class="gloss-item" style="padding-top:20px;">
@@ -749,7 +755,7 @@
 
 <!-- S14 토론 논제 -->
 <section id="s14" class="section">
-<div class="section-title">토론 논제</div>
+<h2 class="section-title">토론 논제</h2>
 <p class="section-sub">6개의 완성문 논제 — 정답이 없는 질문들과 학술적으로 씨름해보세요.</p>
 <div class="disc-card">
   <div class="disc-num">논제 01</div>
@@ -785,7 +791,7 @@
 
 <!-- S15 레퍼런스 + 퀴즈 -->
 <section id="s15" class="section">
-<div class="section-title">레퍼런스</div>
+<h2 class="section-title">레퍼런스</h2>
 <p class="section-sub">이 자료가 참고한 주요 학술 문헌입니다. 목록 밖 추가 시 실재 검증이 필요합니다.</p>
 
 <div class="ref-group">
@@ -849,7 +855,7 @@
 
 <div class="warn-box">⚠️ <strong>레퍼런스 사용 안내:</strong> 고고학 관련 언론 보도는 1차 발굴 보고보다 표현이 과장되는 경향이 있습니다. 학술적으로 인용할 때는 발굴팀의 공식 발표와 전문 고고학 저널의 후속 검토를 함께 확인하시기 바랍니다.</div>
 
-<div class="section-title" style="margin-top:40px;">퀴즈</div>
+<h2 class="section-title" style="margin-top:40px;">퀴즈</h2>
 <p class="section-sub">12문항 — 학습한 내용을 점검해보세요.</p>
 
 <div class="quiz-card">
@@ -1103,12 +1109,21 @@ window.addEventListener('scroll',()=>{
     const h = a.getAttribute('href');
     if (h && h.charAt(0) === '#') map[h.slice(1)] = a;
   });
+  // 현재 섹션의 링크가 nav 화면 밖에 있으면 nav만 가로로 움직여 보이게 한다(페이지 세로 스크롤은 건드리지 않음)
+  function showInNav(a) {
+    let box = a.parentElement;
+    while (box && box !== document.body && !(/(auto|scroll)/.test(getComputedStyle(box).overflowX) && box.scrollWidth > box.clientWidth + 1)) box = box.parentElement;
+    if (!box || box === document.body) return;
+    const r = a.getBoundingClientRect(), b = box.getBoundingClientRect();
+    if (r.left < b.left + 8 || r.right > b.right - 8) box.scrollLeft += (r.left - b.left) - (b.width - r.width) / 2;
+  }
   if (!('IntersectionObserver' in window)) return;
   const obs = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting && map[e.target.id]) {
         navLinks.forEach(function (a) { a.classList.remove('active'); });
         map[e.target.id].classList.add('active');
+        showInNav(map[e.target.id]);
       }
     });
   }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });

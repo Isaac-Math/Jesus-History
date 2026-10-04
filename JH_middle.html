@@ -36,7 +36,7 @@
     --bg: #f9fafb;
     --card: #ffffff;
     --text: #1a1a2e;
-    --muted: #6c757d;
+    --muted: #5c636a;
     --border: #dee2e6;
     --radius: 12px;
     --shadow: 0 2px 12px rgba(0,0,0,0.08);
@@ -157,11 +157,17 @@
     .person-grid { grid-template-columns: 1fr; }
     .person-change-grid { grid-template-columns: 1fr; }
   }
+  /* 상단 바: 알약 버튼은 한 줄로 유지하고, 경로 문구는 좁은 화면에서 숨긴다 */
+  .top-bar a { white-space: nowrap; flex-shrink: 0; }
+  .top-bar > span:last-child { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  @media (max-width: 480px) { .top-bar > span:nth-last-child(-n+2) { display: none; } }
+  /* nav로 이동했을 때 섹션 제목이 고정 nav 밑에 가리지 않게 */
+  section[id] { scroll-margin-top: 60px; }
 </style>
 </head>
 <body>
 
-<div style="background:#4a161f;padding:10px 20px;display:flex;align-items:center;gap:10px;">
+<div class="top-bar" style="background:#4a161f;padding:10px 20px;display:flex;align-items:center;gap:10px;">
   <a href="https://faithreason.kr/Faith_Reason/" style="color:#fff;text-decoration:none;font-size:.83rem;font-weight:600;display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:4px 12px;">← 전체 시리즈</a>
   <span style="color:rgba(255,255,255,.35);font-size:.8rem;">|</span>
   <a href="index.html" style="color:#fff;text-decoration:none;font-size:.83rem;font-weight:600;
@@ -194,7 +200,7 @@
 
 <!-- S0 진짜 있었던 일일까? -->
 <section id="s0" class="section">
-<div class="section-title">🔍 진짜 있었던 일일까?</div>
+<h2 class="section-title">🔍 진짜 있었던 일일까?</h2>
 <p class="section-sub">2천 년 전 사건을 오늘날 어떻게 검증할 수 있을까요? 탐정의 도구로 시작합니다.</p>
 <div class="tab-bar">
   <button class="tab-btn active" onclick="switchTab('s0','s0t1',this)">🔎 증거</button>
@@ -227,7 +233,7 @@
 
 <!-- S1 네 권의 전기 -->
 <section id="s1" class="section">
-<div class="section-title">📚 네 권의 전기</div>
+<h2 class="section-title">📚 네 권의 전기</h2>
 <p class="section-sub">복음서는 무슨 종류의 글일까요? 그리고 왜 네 권이나 있을까요?</p>
 <div class="card">
   <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">교통사고 목격담을 떠올려보세요</p>
@@ -251,7 +257,7 @@
 
 <!-- S2 성경 밖에서도 예수가? -->
 <section id="s2" class="section">
-<div class="section-title">🏛️ 성경 밖에서도 예수가?</div>
+<h2 class="section-title">🏛️ 성경 밖에서도 예수가?</h2>
 <p class="section-sub">성경을 믿지 않는 사람들도 예수님에 대해 기록했을까요?</p>
 <div class="card">
   <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">🏛️ 로마 역사가 타키투스 (주후 116년경)</p>
@@ -268,7 +274,7 @@
 
 <!-- S3 돌들이 말한다 -->
 <section id="s3" class="section">
-<div class="section-title">⛏️ 돌들이 말한다</div>
+<h2 class="section-title">⛏️ 돌들이 말한다</h2>
 <p class="section-sub">땅속에서 발견된 유물들이 복음서 이야기를 어떻게 확인해주는지 살펴봅니다. 카드를 클릭해보세요.</p>
 <div class="flip-grid">
   <div class="flip-card" onclick="flipCard(this)">
@@ -332,7 +338,7 @@
 
 <!-- S4 십자가 -->
 <section id="s4" class="section">
-<div class="section-title">✝️ 십자가 — 가장 확실한 사실</div>
+<h2 class="section-title">✝️ 십자가 — 가장 확실한 사실</h2>
 <p class="section-sub">역사학자들이 거의 만장일치로 동의하는 단 하나의 사실이 있다면, 그것은 십자가형입니다.</p>
 <div class="card">
   <p style="font-weight:700;color:var(--jh);margin-bottom:12px;">왜 그렇게 확신할 수 있을까요? — "부끄러운 이야기는 지어내지 않는다" 논리</p>
@@ -360,7 +366,7 @@
 
 <!-- S5 빈 무덤의 아침 -->
 <section id="s5" class="section">
-<div class="section-title">🌅 빈 무덤의 아침</div>
+<h2 class="section-title">🌅 빈 무덤의 아침</h2>
 <p class="section-sub">십자가 이후 사흘째 아침, 무슨 일이 있었을까요?</p>
 <div class="card">
   <p style="font-weight:700;color:var(--jh);margin-bottom:10px;">첫 증인이 여인들이었다는 것의 의미</p>
@@ -377,7 +383,7 @@
 
 <!-- S6 겁쟁이들이 용감해진 이유 -->
 <section id="s6" class="section">
-<div class="section-title">🔥 겁쟁이들이 용감해진 이유</div>
+<h2 class="section-title">🔥 겁쟁이들이 용감해진 이유</h2>
 <p class="section-sub">십자가 사건 직후 도망쳤던 사람들이, 어떻게 목숨을 걸고 복음을 전하는 사람들이 되었을까요?</p>
 <div class="person-change-grid">
   <div class="change-card">
@@ -414,7 +420,7 @@
 
 <!-- S7 나에게 무슨 의미? -->
 <section id="s7" class="section">
-<div class="section-title">💡 나에게 무슨 의미?</div>
+<h2 class="section-title">💡 나에게 무슨 의미?</h2>
 <p class="section-sub">역사적 증거를 다 살펴봤다면, 이제 이것이 나와 무슨 상관인지 생각해볼 차례입니다.</p>
 <div class="card">
   <p style="font-weight:700;color:var(--jh);margin-bottom:12px;">기독교는 스스로 위험을 감수하는 정직한 신앙입니다</p>
@@ -435,7 +441,7 @@
 
 <!-- S8 학자들 -->
 <section id="s8" class="section">
-<div class="section-title">🧑‍🎓 이 분야를 연구한 사람들</div>
+<h2 class="section-title">🧑‍🎓 이 분야를 연구한 사람들</h2>
 <p class="section-sub">예수와 역사를 깊이 연구한 학자와 저자 4인을 소개합니다.</p>
 <div class="person-grid">
   <div class="person-card">
@@ -471,7 +477,7 @@
 
 <!-- S9 퀴즈 -->
 <section id="s9" class="section">
-<div class="section-title">❓ 퀴즈</div>
+<h2 class="section-title">❓ 퀴즈</h2>
 <p class="section-sub">10문항 — 배운 내용을 점검해보세요.</p>
 
 <div class="quiz-card">
@@ -672,12 +678,21 @@ window.addEventListener('scroll',()=>{
     const h = a.getAttribute('href');
     if (h && h.charAt(0) === '#') map[h.slice(1)] = a;
   });
+  // 현재 섹션의 링크가 nav 화면 밖에 있으면 nav만 가로로 움직여 보이게 한다(페이지 세로 스크롤은 건드리지 않음)
+  function showInNav(a) {
+    let box = a.parentElement;
+    while (box && box !== document.body && !(/(auto|scroll)/.test(getComputedStyle(box).overflowX) && box.scrollWidth > box.clientWidth + 1)) box = box.parentElement;
+    if (!box || box === document.body) return;
+    const r = a.getBoundingClientRect(), b = box.getBoundingClientRect();
+    if (r.left < b.left + 8 || r.right > b.right - 8) box.scrollLeft += (r.left - b.left) - (b.width - r.width) / 2;
+  }
   if (!('IntersectionObserver' in window)) return;
   const obs = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting && map[e.target.id]) {
         navLinks.forEach(function (a) { a.classList.remove('active'); });
         map[e.target.id].classList.add('active');
+        showInNav(map[e.target.id]);
       }
     });
   }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
